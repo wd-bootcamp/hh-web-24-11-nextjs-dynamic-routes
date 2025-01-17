@@ -1,8 +1,17 @@
 import Link from "next/link";
 import Head from "next/head.js";
+import { useRouter } from "next/router.js";
 import { movies } from "@/lib/data.js";
 
 export default function Movies() {
+  const router = useRouter();
+
+  function handleRandomRedirect() {
+    const randomIndex = Math.floor(Math.random() * movies.length);
+    const randomMovie = movies[randomIndex];
+    router.push(`/movies/${randomMovie.slug}`);
+  }
+
   return (
     <>
       <Head>
@@ -16,6 +25,7 @@ export default function Movies() {
           </li>
         ))}
       </ul>
+      <button onClick={handleRandomRedirect}>Suprise me!</button>
     </>
   );
 }
